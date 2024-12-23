@@ -10,17 +10,19 @@ import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
+  useSidebar
 } from "@/components/ui/sidebar";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import WingmanLogo from "./icons/logo";
+import { SettingsIcon } from "lucide-react";
 
-export default function GlobalSidebar ({
-  items,
+export default function GlobalSidebar({
+  items
 }: {
   items: {
     title: string;
@@ -43,35 +45,28 @@ export default function GlobalSidebar ({
         <SidebarContent>
           <SidebarMenu>
             {items.map((item) => (
-              <SidebarMenuItem key={item.href}>
+              <SidebarMenuItem key={item.href} className="p-2">
                 <SidebarMenuButton
                   asChild
-                  className={cn(
-                    "h-[60px] justify-center p-0",
-                    pathname === item.href
-                      ? "text-primary"
-                      : "text-muted hover:text-primary"
-                  )}
+                  className={`text-brand-secondary items-center justify-center h-9 w-auto rounded-lg p-0 text-base ${
+                    pathname === item.href ? "text-brand bg-white" : ""
+                  }`}
                 >
-                  <div>
-                    {pathname === item.href && (
-                      <div className="w-[6px] absolute left-0 h-[60px] bg-primary rounded-tr-2.5 rounded-br-2.5" />
-                    )}
-                    <div className="w-full px-10 h-full">
-                      <Link
-                        href={item.href}
-                        className="h-full w-full flex items-center gap-7"
-                      >
-                        {item.icon}
-                        
-                      </Link>
-                    </div>
-                  </div>
+                  <Link href={item.href}>{item.icon}</Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
           </SidebarMenu>
         </SidebarContent>
+        <SidebarFooter>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton className="items-center justify-center text-brand-secondary">
+                <SettingsIcon />
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarFooter>
       </Sidebar>
 
       {/* Mobile Sidebar */}
@@ -105,7 +100,6 @@ export default function GlobalSidebar ({
                           className="h-full w-full flex items-center gap-3 [&>svg]:w-4"
                         >
                           {item.icon}
-                          
                         </Link>
                       </div>
                     </div>
@@ -118,4 +112,4 @@ export default function GlobalSidebar ({
       </Sheet>
     </>
   );
-};
+}
